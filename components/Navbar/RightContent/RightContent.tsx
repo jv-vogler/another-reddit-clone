@@ -1,18 +1,20 @@
-import AuthModal from '@/components/Modal/Auth/AuthModal';
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
+import { Flex } from '@chakra-ui/react';
+import { signOut, User } from 'firebase/auth';
+import { auth } from '@/firebase/clientApp';
+import AuthModal from '@/components/Modal/Auth/AuthModal';
 import AuthButtons from './AuthButtons';
 
 type RightContentProps = {
-  // user
+  user: User | undefined | null;
 };
 
-const RightContent: React.FC<RightContentProps> = () => {
+const RightContent: React.FC<RightContentProps> = ({ user }) => {
   return (
     <>
       <AuthModal />
-      <Flex justify='center' align='center'>
-        <AuthButtons />
+      <Flex justify="center" align="center">
+        {user ? <button onClick={() => signOut(auth)}>Logout</button> : <AuthButtons />}
       </Flex>
     </>
   );

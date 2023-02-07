@@ -1,9 +1,9 @@
 'use client';
 
-import Navbar from '@/components/Navbar/Navbar';
 import { theme } from '@/chakra/theme';
 import { ChakraProvider } from '@chakra-ui/react';
 import { RecoilRoot } from 'recoil';
+import Navbar from '@/components/Navbar/Navbar';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
