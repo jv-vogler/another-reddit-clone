@@ -68,14 +68,12 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
           imageURL: downloadURL,
         });
       }
+      router.back();
     } catch (error: any) {
       console.error('handleCreatePost error', error.message);
       setError(true);
     }
     setLoading(false);
-
-    // redirect the user back to the communityPage using the router
-    router.back();
   };
 
   const onSelectedImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,8 +135,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       {error && (
         <Alert status="error">
           <AlertIcon />
-          <AlertTitle>Your browser is outdated!</AlertTitle>
-          <AlertDescription>Your Chakra experience may be degraded.</AlertDescription>
+          <AlertTitle>Error creating post!</AlertTitle>
         </Alert>
       )}
     </Flex>
