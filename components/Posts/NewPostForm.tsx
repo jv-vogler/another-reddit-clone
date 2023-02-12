@@ -12,6 +12,7 @@ import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import TabItem from './TabItem';
 import TextInputs from './PostForm/TextInputs';
 import ImageUpload from './PostForm/ImageUpload';
+import useSelectFile from '@/hooks/useSelectFile';
 
 type NewPostFormProps = {
   user: User;
@@ -33,8 +34,8 @@ export type TabItemType = {
 const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
   const router = useRouter();
   const selectedFileRef = useRef<HTMLInputElement>(null);
+  const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
-  const [selectedFile, setSelectedFile] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [textInputs, setTextInputs] = useState({
@@ -76,21 +77,6 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
     setLoading(false);
   };
 
-  const onSelectedImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
-    const uploadedImage = e.target.files?.[0];
-
-    if (uploadedImage) {
-      reader.readAsDataURL(uploadedImage);
-    }
-
-    reader.onload = readerEvent => {
-      if (readerEvent.target?.result) {
-        setSelectedFile(readerEvent.target.result as string);
-      }
-    };
-  };
-
   const onTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {
       target: { name, value },
@@ -125,7 +111,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
         {selectedTab === 'Images & Video' && (
           <ImageUpload
             selectedFile={selectedFile}
-            onSelectedImage={onSelectedImage}
+            onSelectedImage={onSelectFile}
             selectedFileRef={selectedFileRef}
             setSelectedTab={setSelectedTab}
             setSelectedFile={setSelectedFile}
