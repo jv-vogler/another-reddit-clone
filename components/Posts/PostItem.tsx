@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { NextRouter } from 'next/router';
-import { Alert, AlertIcon, AlertTitle, Flex, Icon, Image, Skeleton, Spinner, Stack, Text } from '@chakra-ui/react';
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  Flex,
+  Icon,
+  Image,
+  Skeleton,
+  Spinner,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsChat, BsDot } from 'react-icons/bs';
 import { FaReddit } from 'react-icons/fa';
@@ -19,7 +30,7 @@ type PostItemProps = {
   post: Post;
   userIsCreator: boolean;
   userVoteValue?: number;
-  onVote: () => {};
+  onVote: (post: Post, value: number, communityId: string) => void;
   onDeletePost: (post: Post) => Promise<boolean>;
   onSelectPost: () => void;
 };
@@ -66,25 +77,25 @@ const PostItem: React.FC<PostItemProps> = ({
           as={userVoteValue === 1 ? IoArrowUpCircleSharp : IoArrowUpCircleOutline}
           color={userVoteValue === 1 ? 'brand.100' : 'gray.400'}
           fontSize={22}
-          onClick={onVote}
+          onClick={() => onVote(post, 1, post.communityId)}
           cursor="pointer"
         />
         <Text fontSize="9pt">{post.voteStatus}</Text>
         <Icon
           as={userVoteValue === -1 ? IoArrowDownCircleSharp : IoArrowDownCircleOutline}
-          color={userVoteValue === 1 ? '#4379ff' : 'gray.400'}
+          color={userVoteValue === -1 ? '#4379ff' : 'gray.400'}
           fontSize={22}
-          onClick={onVote}
+          onClick={() => onVote(post, -1, post.communityId)}
           cursor="pointer"
         />
       </Flex>
       <Flex direction="column" width="100%">
-      {error && (
-        <Alert status="error">
-          <AlertIcon />
-          <AlertTitle>{error}</AlertTitle>
-        </Alert>
-      )}
+        {error && (
+          <Alert status="error">
+            <AlertIcon />
+            <AlertTitle>{error}</AlertTitle>
+          </Alert>
+        )}
         <Stack spacing={1} p="10px">
           <Stack direction="row" spacing={0.6} align="center" fontSize="9pt">
             {/* Home Page Check */}

@@ -3,10 +3,10 @@ import { Community } from '@/atoms/communitiesAtom';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { auth, firestore } from '@/firebase/clientApp';
 import { Post } from '@/atoms/postsAtom';
-import usePosts from '@/hooks/usePosts';
-import PostItem from './PostItem';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Stack } from '@chakra-ui/react';
+import usePosts from '@/hooks/usePosts';
+import PostItem from './PostItem';
 import PostLoader from './PostLoader';
 
 type PostsProps = {
@@ -51,7 +51,9 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
               key={post.id}
               post={post}
               userIsCreator={user?.uid === post.creatorId}
-              userVoteValue={undefined}
+              userVoteValue={
+                postStateValue.postVotes.find(vote => vote.postId === post.id)?.voteValue
+              }
               onVote={onVote}
               onDeletePost={onDeletePost}
               onSelectPost={onSelectPost}
