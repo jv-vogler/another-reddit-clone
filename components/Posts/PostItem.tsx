@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { NextRouter } from 'next/router';
-import { Flex, Icon, Image, Skeleton, Spinner, Stack, Text } from '@chakra-ui/react';
+import { Alert, AlertIcon, AlertTitle, Flex, Icon, Image, Skeleton, Spinner, Stack, Text } from '@chakra-ui/react';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsChat, BsDot } from 'react-icons/bs';
 import { FaReddit } from 'react-icons/fa';
@@ -20,7 +20,7 @@ type PostItemProps = {
   userIsCreator: boolean;
   userVoteValue?: number;
   onVote: () => {};
-  onDeletePost: () => {};
+  onDeletePost: (post: Post) => Promise<boolean>;
   onSelectPost: () => void;
 };
 
@@ -33,6 +33,23 @@ const PostItem: React.FC<PostItemProps> = ({
   onSelectPost,
 }) => {
   const [loadingImage, setLoadingImage] = useState(true);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleDelete = async () => {
+    setLoadingDelete(true);
+    try {
+      const success = await onDeletePost(post);
+
+      if (!success) {
+        throw new Error('Failed to delete post');
+      }
+      console.log('Post was successfully deleted');
+    } catch (error: any) {
+      setError(error.message);
+    }
+    setLoadingDelete(false);
+  };
 
   return (
     <Flex
@@ -62,6 +79,12 @@ const PostItem: React.FC<PostItemProps> = ({
         />
       </Flex>
       <Flex direction="column" width="100%">
+      {error && (
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle>{error}</AlertTitle>
+        </Alert>
+      )}
         <Stack spacing={1} p="10px">
           <Stack direction="row" spacing={0.6} align="center" fontSize="9pt">
             {/* Home Page Check */}
@@ -124,11 +147,17 @@ const PostItem: React.FC<PostItemProps> = ({
               p="8px 10px"
               borderRadius={4}
               cursor="pointer"
-              onClick={onDeletePost}
+              onClick={handleDelete}
               _hover={{ bg: 'gray.200' }}
             >
-              <Icon as={AiOutlineDelete} mr={2} />
-              <Text fontSize="9pt">Delete</Text>
+              {loadingDelete ? (
+                <Spinner size="sm"></Spinner>
+              ) : (
+                <>
+                  <Icon as={AiOutlineDelete} mr={2} />
+                  <Text fontSize="9pt">Delete</Text>
+                </>
+              )}
             </Flex>
           )}
         </Flex>
