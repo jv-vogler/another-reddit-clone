@@ -12,6 +12,9 @@ import PostItem from '@/components/Posts/PostItem';
 import CreatePostLink from '@/components/Community/CreatePostLink';
 import usePosts from '@/hooks/usePosts';
 import useCommunityData from '@/hooks/useCommunityData';
+import Recommendations from '@/components/Community/Recommendations';
+import Premium from '@/components/Community/Premium';
+import PersonalHome from '@/components/Community/PersonalHome';
 
 const Home: NextPage = () => {
   const [user, loadingUser] = useAuthState(auth);
@@ -94,15 +97,16 @@ const Home: NextPage = () => {
   }, [user, loadingUser]);
 
   useEffect(() => {
-    if (user && postStateValue.posts.length) getUserPostVotes();
+    if (!user?.uid || !postStateValue.posts.length) return;
+    getUserPostVotes();
 
     return () => {
       setPostStateValue(prev => ({
         ...prev,
-        posts: [],
+        postVotes: [],
       }));
     };
-  }, [user, postStateValue.posts]);
+  }, [postStateValue.posts, user?.uid]);
 
   return (
     <PageContent>
@@ -127,7 +131,11 @@ const Home: NextPage = () => {
           </Stack>
         )}
       </>
-      <>{/* <Recommendations /> */}</>
+      <Stack spacing={5}>
+        <Recommendations />
+        <Premium />
+        <PersonalHome />
+      </Stack>
     </PageContent>
   );
 };
