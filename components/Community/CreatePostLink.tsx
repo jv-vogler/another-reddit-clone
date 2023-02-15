@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { BsLink45Deg } from 'react-icons/bs';
 import { Flex, Icon, Input } from '@chakra-ui/react';
@@ -9,12 +8,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase/clientApp';
 import { useSetRecoilState } from 'recoil';
 import { authModalState } from '@/atoms/authModalAtom';
-// import useDirectory from '../../hooks/useDirectory';
+import useDirectory from '@/hooks/useDirectory';
 
 const CreatePostLink: React.FC = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const setAuthModalState = useSetRecoilState(authModalState);
+  const { toggleMenuOpen } = useDirectory();
 
   const onClick = () => {
     if (!user) {
@@ -22,7 +22,12 @@ const CreatePostLink: React.FC = () => {
       return;
     }
     const { communityId } = router.query;
-    router.push(`/r/${communityId}/submit`)
+
+    if (communityId) {
+      router.push(`/r/${communityId}/submit`);
+      return;
+    }
+    toggleMenuOpen();
   };
   return (
     <Flex

@@ -53,6 +53,7 @@ const useCommunityData = () => {
       const newSnippet: CommunitySnippet = {
         communityId: communityData.id,
         imageURL: communityData.imageURL || '',
+        isModerator: user?.uid === communityData.creatorId,
       };
 
       // adds the community snippet to the user
