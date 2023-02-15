@@ -16,6 +16,7 @@ import useSelectFile from '@/hooks/useSelectFile';
 
 type NewPostFormProps = {
   user: User;
+  communityImageURL?: string;
 };
 
 const formTabs: TabItemType[] = [
@@ -31,7 +32,7 @@ export type TabItemType = {
   icon: typeof Icon.arguments;
 };
 
-const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
+const NewPostForm: React.FC<NewPostFormProps> = ({ user, communityImageURL }) => {
   const router = useRouter();
   const selectedFileRef = useRef<HTMLInputElement>(null);
   const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
@@ -54,13 +55,12 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       numberOfComments: 0,
       voteStatus: 0,
       createdAt: serverTimestamp() as Timestamp,
+      communityImageURL: communityImageURL || '',
     };
 
     setLoading(true);
     try {
-      // store the post in db
       const postDocRef = await addDoc(collection(firestore, 'posts'), newPost);
-      // check for selectedFile to process image
       if (selectedFile) {
         const imageRef = ref(storage, `posts/${postDocRef.id}/image`);
         await uploadString(imageRef, selectedFile, 'data_url');
