@@ -1,19 +1,19 @@
 # [Another Reddit Clone](https://another-reddit-clone-two.vercel.app/)
 
-[![en](https://img.shields.io/badge/README%20em-português-brightgreen.svg)](../main/README.pt.md)
+[![en](https://img.shields.io/badge/README%20in-english-red.svg)](../main/README.md)
 
-A clone of [Reddit](https://www.reddit.com/) with many features.
+Um clone do site [Reddit](https://www.reddit.com/) com várias funcionalidades.
 
-### [**Live Page**](https://another-reddit-clone-two.vercel.app/)
+### [**Página ao vivo**](https://another-reddit-clone-two.vercel.app/)
 
-## Features
+## Funcionalidades
 
-- Authentication by email and password or Google account.
-- Create and join communities.
-- Create and delete posts.
-- Vote on posts.
+- Autenticação por email e senha ou conta Google.
+- Criar e entrar em comunidades.
+- Criar e deletar posts.
+- Votar nos posts.
 
-## Tools used
+## Ferramentas utilizadas
 
 [<img alt="Visual Studio Code" width="50px" style="padding-right: 10px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" />](https://code.visualstudio.com/ 'Visual Studio Code')
 [<img  alt="ReactJS" width="50px" style="padding-right: 10px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" />](https://reactjs.org/ 'ReactJS')
@@ -25,21 +25,21 @@ A clone of [Reddit](https://www.reddit.com/) with many features.
 
 VSCode | React | TypeScript | Next.js | Chakra UI | Firebase | Recoil
 
-## About the project
-This project uses Next.js as a framework for SSR and routing, Chakra UI for styling and interface components, Firebase for authentication alongside Firestore + Storage for data storage, and Recoil as a state manager.
+## Sobre o projeto
+Esse projeto usa Next.js como framework para SSR e rotas, Chakra UI para estilização e componentes da interface, Firebase para autenticação com Firestore + Storage para armazenamento de dados, e Recoil como gerenciador de estado.
 
-My first fullstack project utilizing technologies such as Next.js, Chakra UI, Firebase and Recoil, and it is far from perfect, however it was possible to learn valuable lessons specially on how to use Cloud Firestore as a database and its security rules.
+Meu primeiro projeto fullstack utilizando as tecnologias Next.js, Chakra UI, Firebase e Recoil, e está longe de ser perfeito, porém foi possível tirar várias lições valiosas, principalmente de como usar o Cloud Firestore como banco de dados e suas regras de segurança.
 
-### _Possible improvements:_
+### _Possíveis melhorias:_
 
-1. Delete communities.
-2. Optimize performance and accessibility.
-3. Add functionality to a few decorative interface elements.
+1. Deletar comunidades.
+2. Otimizar performance e acessibilidade.
+3. Adicionar funcionalidade para alguns elementos decorativos da interface.
 
-## Acknoledgement
-[Shadee Merhi](https://www.youtube.com/@shadmerhi) for the quality content.
+## Agradecimento
+[Shadee Merhi](https://www.youtube.com/@shadmerhi) pelo conteúdo de qualidade.
 
-## Licence
+## Licença
 
-[MIT](https://choosealicense.com/licenses/mit/) License.
-All rights reserved &copy; 2023 JV Vogler.
+Licença [MIT](https://choosealicense.com/licenses/mit/).
+Todos os direitos reservados &copy; 2023 JV Vogler.
