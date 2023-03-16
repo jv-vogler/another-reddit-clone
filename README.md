@@ -36,7 +36,7 @@ My first fullstack project utilizing technologies such as Next.js, Chakra UI, Fi
 2. Optimize performance and accessibility.
 3. Add functionality to a few decorative interface elements.
 
-## Acknoledgement
+## Acknowledgment
 [Shadee Merhi](https://www.youtube.com/@shadmerhi) for the quality content.
 
 ## Licence
